@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source: https://github.com/spigrig/webapp
+  source: https://github.com/spigrig/webapp/chart
   targetRevision: HEAD
   path: webapp
   destination:
