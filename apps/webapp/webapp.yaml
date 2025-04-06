@@ -1,3 +1,23 @@
+
+# This YAML file defines an ArgoCD Application resource for deploying the "webapp" application.
+# 
+# Metadata:
+# - `name`: The name of the ArgoCD application is "webapp".
+# - `namespace`: The application resides in the "argocd" namespace.
+#
+# Spec:
+# - `project`: Specifies the ArgoCD project to which this application belongs. Here, it is set to "default".
+# - `source`: Defines the source of the application:
+#   - `repoURL`: The Git repository URL where the application's source code is hosted.
+#   - `targetRevision`: The branch, tag, or commit to deploy. "HEAD" refers to the latest commit on the default branch.
+#   - `path`: The path within the repository where the application manifests or Helm chart are located.
+# - `destination`: Specifies where the application should be deployed:
+#   - `server`: The Kubernetes API server URL. "https://kubernetes.default.svc" refers to the in-cluster Kubernetes API.
+#   - `namespace`: The Kubernetes namespace where the application will be deployed. Here, it is "default".
+# - `syncPolicy`: Configures the synchronization behavior:
+#   - `automated`: Enables automated synchronization.
+#     - `prune`: Automatically deletes resources that are no longer defined in the source.
+#     - `selfHeal`: Automatically corrects drift between the desired and live state of resources.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -5,9 +25,10 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source: https://github.com/spigrig/webapp/chart
-  targetRevision: HEAD
-  path: webapp
+  source:
+    repoURL: https://github.com/spigrig/webapp
+    targetRevision: HEAD
+    path: chart
   destination:
     server: https://kubernetes.default.svc
     namespace: default
